@@ -1,0 +1,59 @@
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script>
+  $(document).ready(function(){
+        $("#DayTrip").click(function (){
+            if ($("#DayTrip").prop("checked")){
+                $(".return").hide();
+            }else{
+                $(".return").show();
+            }
+        });
+    });
+</script>
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block destination %}New Travel{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+  <label for="destination">Destination</label>
+  <input name="destination" id="destination" value="{{ request.form['destination'] }}" required>
+  <ul>
+    <li>
+      <ul>
+        <li><label for="tdate"> Leaving on </label></li>
+        <li><input type="date" name="tdate"></li>
+      </ul>
+    </li>
+    <li>
+      <ul>
+        <li><label for="ttime"> at </label></li>
+        <li><input type="time" name="ttime"></li>
+      </ul>
+    </li>
+    <li>
+      <ul>
+        <li><label for="Day Trip">Day Trip</label></li>
+        <li><input type="checkbox" id="DayTrip" value=""></li>
+      </ul>
+    </li>
+    <li class="return">
+      <ul>
+        <li><label for="tdateb">Returning on</label></li>
+        <li><input type="date" name="tdateb"></li>
+      </ul>
+    </li>
+    <li class="return">
+      <ul>
+        <li><label for="ttimeb">at</label></li>
+        <li><input type="time" name="ttimeb"></li>
+      </ul>
+    </li>
+  </ul>
+  <label for="body">Note e dettagli</label>
+  <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+  <input type="submit" value="Save">
+</form>
+{% endblock %}

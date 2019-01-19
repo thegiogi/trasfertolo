@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Scheduled Travels{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('travel.create') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for travel in travels %}
+    <article class="travel">
+      <header>
+        <div>
+          <h1>{{ travel['destination'] }} {{ travel['traveldate'] }} </h1>
+          <div class="about">by {{ travel['username'] }} on {{ travel['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+        {% if g.user['id'] == travel['author_id'] %}
+          <a class="action" href="{{ url_for('travel.update', id=travel['id']) }}">Edit</a>
+        {% endif %}
+      </header>
+      <p class="body">{{ travel['body'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
